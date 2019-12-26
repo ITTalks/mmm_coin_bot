@@ -5,11 +5,12 @@ from account import Account
 
 
 async def main():
-    a = Account("sign here")
+    a = Account("", 256460254)
     while True:
         data = await a.mine(100)
         # i should use logging here!
         print(data)
+        await asyncio.sleep(20)
 
 
 loop = asyncio.get_event_loop()
