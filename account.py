@@ -27,24 +27,32 @@ class Account:
     def create_json(self, module: str, data: dict) -> dict:
         """Создает жсон для запросов"""
 
-        return dict(module=module, data=data,
-                    get={
-                        "vk_access_token_settings": "notify",
-                        "vk_app_id": "7252470",
-                        "vk_are_notifications_enabled": "0",
-                        "vk_is_app_user": "1",
-                        "vk_is_favorite": "0",
-                        "vk_language": "ru",
-                        "vk_platform": "desktop_web",
-                        "vk_ref": "other",
-                        "vk_user_id": self.user_id},
-                    sign=self.sign)
+        return dict(
+            module=module,
+            data=data,
+            get={
+                "vk_access_token_settings": "notify",
+                "vk_app_id": "7252470",
+                "vk_are_notifications_enabled": "0",
+                "vk_is_app_user": "1",
+                "vk_is_favorite": "0",
+                "vk_language": "ru",
+                "vk_platform": "desktop_web",
+                "vk_ref": "other",
+                "vk_user_id": self.user_id,
+            },
+            sign=self.sign,
+        )
 
     async def mine(self, count: int):
         """Майнит count монет за один запрос"""
-        payload = self.create_json("ping", dict(minied=count))
+        payload = self.create_json("ping", dict(mined=count))
         return await self.request(payload)
 
-    async def invest(self, to_type: InvestType, to_id: int, amount: int, invest_range: InvestRange):
-        payload = self.create_json("invest", dict(type=to_type, id=to_id, amount=amount, range=invest_range))
+    async def invest(
+        self, to_type: InvestType, to_id: int, amount: int, invest_range: InvestRange
+    ):
+        payload = self.create_json(
+            "invest", dict(type=to_type, id=to_id, amount=amount, range=invest_range)
+        )
         return await self.request(payload)

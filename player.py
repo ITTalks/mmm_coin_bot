@@ -5,9 +5,9 @@ from account import Account
 
 
 async def main():
-    a = Account("", 256460254)
+    a = Account("", 123)
     while True:
-        data = await a.mine(100)
+        data = await a.mine(200)
         # i should use logging here!
         print(data)
         await asyncio.sleep(20)
