@@ -1,17 +1,20 @@
 import asyncio
-import logging
-from utils.task_manager import TaskManager
 from account import Account
+from tactic import Simple
+from utils.task_manager import TaskManager
+
+players = []
+
+for i, sign_url in enumerate(open("accs.txt")):
+    acc = Account(sign_url[:-1])
+    s = Simple(acc, i)
+    players.append(s.process)
 
 
 async def main():
-    a = Account("") # your apps.get mobile_iframe
     while True:
-        data = await a.mine(200)
-        # i should use logging here!
-        print(data)
-        await asyncio.sleep(20)
-
+        for p in players:
+            await p()
 
 loop = asyncio.get_event_loop()
 task_manager = TaskManager(loop)
