@@ -1,5 +1,7 @@
 import aiohttp
 
+import aiohttp
+
 
 class InvestRange:
     ten_min_x1dot1 = 1
@@ -15,9 +17,11 @@ class InvestType:
 class Account:
     url: str = "https://vkpredlojka.ru/server/"
 
-    def __init__(self, sign: str, user_id: int):
-        self.user_id = user_id
-        self.sign = sign
+    def __init__(self, sign_url: str):
+        self.parsed_url = {x[0]: x[1] for x in [x.split("=") for x in sign_url.split("?")[1].split("&")]}
+        self.parsed_url["vk_access_token_settings"] = self.parsed_url["vk_access_token_settings"].replace("%2C", ",")
+        self.sign = self.parsed_url["sign"]
+        del self.parsed_url["sign"]
         self.session = aiohttp.ClientSession()
 
     async def request(self, data):
@@ -27,22 +31,9 @@ class Account:
     def create_json(self, module: str, data: dict) -> dict:
         """Создает жсон для запросов"""
 
-        return dict(
-            module=module,
-            data=data,
-            get={
-                "vk_access_token_settings": "notify",
-                "vk_app_id": "7252470",
-                "vk_are_notifications_enabled": "0",
-                "vk_is_app_user": "1",
-                "vk_is_favorite": "0",
-                "vk_language": "ru",
-                "vk_platform": "desktop_web",
-                "vk_ref": "other",
-                "vk_user_id": self.user_id,
-            },
-            sign=self.sign,
-        )
+        return dict(module=module, data=data,
+                    get=self.parsed_url,
+                    sign=self.sign)
 
     async def mine(self, count: int):
         """Майнит count монет за один запрос"""
