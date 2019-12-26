@@ -9,11 +9,12 @@ async def main():
     #...
 ```
 
-
+Для начала нужно не забыть поставить Python
 
 ```bash
 git clone https://github.com/ITTalks/mmm_coin_bot
 cd mmm_coin_bot
+pip install aiohttp
 python player.py
 ```
 
