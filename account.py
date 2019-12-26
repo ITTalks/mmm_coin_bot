@@ -1,6 +1,17 @@
 import aiohttp
 
 
+class InvestRange:
+    ten_min_x1dot1 = 1
+    thirty_min_x1dot4 = 2
+    sixty_min_x2 = 3
+
+
+class InvestType:
+    group = "group"
+    user = "user"
+
+
 class Account:
     url: str = "https://vkpredlojka.ru/server/"
 
@@ -29,7 +40,11 @@ class Account:
                         "vk_user_id": self.user_id},
                     sign=self.sign)
 
-    async def mine(self, count):
+    async def mine(self, count: int):
         """Майнит count монет за один запрос"""
         payload = self.create_json("ping", dict(minied=count))
+        return await self.request(payload)
+
+    async def invest(self, to_type: InvestType, to_id: int, amount: int, invest_range: InvestRange):
+        payload = self.create_json("invest", dict(type=to_type, id=to_id, amount=amount, range=invest_range))
         return await self.request(payload)
