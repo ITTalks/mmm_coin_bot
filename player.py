@@ -2,11 +2,11 @@ import asyncio
 from account import Account
 from tactic import Simple
 from utils.task_manager import TaskManager
-from config import sleep_after_mine
+from config import sleep_after_mine, accs_file_name
 
 players = []
 
-for i, sign_url in enumerate(open("accs.txt").read().split("\n")):
+for i, sign_url in enumerate(open(accs_file_name).read().split("\n")):
     acc = Account(sign_url)
     s = Simple(acc, str(i))
     players.append(s.process)
