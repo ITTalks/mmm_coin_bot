@@ -9,11 +9,6 @@ class InvestRange:
     sixty_min_x2 = 3
 
 
-class InvestType:
-    group = "group"
-    user = "user"
-
-
 class Account:
     url: str = "https://vkpredlojka.ru/server/"
 
@@ -41,7 +36,7 @@ class Account:
         return await self.request(payload)
 
     async def invest(
-        self, to_type: InvestType, to_id: int, amount: int, invest_range: InvestRange
+        self, to_type: str, to_id: int, amount: int, invest_range: InvestRange
     ):
         payload = self.create_json(
             "invest", dict(type=to_type, id=to_id, amount=amount, range=invest_range)
