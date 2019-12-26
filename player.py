@@ -5,7 +5,7 @@ from account import Account
 
 
 async def main():
-    a = Account("", 123)
+    a = Account("") # your apps.get mobile_iframe
     while True:
         data = await a.mine(200)
         # i should use logging here!
