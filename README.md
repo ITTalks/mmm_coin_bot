@@ -7,8 +7,15 @@
 ```bash
 git clone https://github.com/ITTalks/mmm_coin_bot
 cd mmm_coin_bot
-pip install aiohttp
-python player.py
+pip3 install -r requirments.txt
+python3 player.py
+```
+Можно конечно заморочится и создать venv (рекомендуется)
+
+```bash
+python3 -m venv venv/
+source venv/bin/activate
+А дальше устанавливаем все указано выше.
 ```
 
 
