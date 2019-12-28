@@ -24,7 +24,6 @@ class Account:
 
     async def request(self, data):
         async with self.session.post(self.url, json=data) as resp:
-            print(data)
             return await resp.json()
 
     def create_json(self, module: str, data: dict) -> dict:
